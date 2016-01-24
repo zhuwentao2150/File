@@ -8,60 +8,63 @@ import java.io.FileOutputStream;
 import android.content.Context;
 import android.os.Environment;
 
+/**
+ * æ–‡ä»¶æ“ä½œç±»
+ * */
 public class FileService {
 	private Context context;
-	// Í¨¹ı¹¹ÔìÆ÷¸øËü¸³Öµ£¬Ê¹ÓÃsetÈİÒ×ºöÂÔ£¬²»ÍÆ¼ö
+	// é€šè¿‡æ„é€ å™¨ç»™å®ƒèµ‹å€¼ï¼Œä½¿ç”¨setå®¹æ˜“å¿½ç•¥ï¼Œä¸æ¨è
 	public FileService(Context context) {
 		this.context = context;
 	}
 	/**
-	 * ±£´æÎÄ¼şµ½ÊÖ»ú×Ô´ø´æ´¢Æ÷
-	 * @param filename ÎÄ¼şÃû³Æ
-	 * @param content ÎÄ¼şÄÚÈİ
+	 * ä¿å­˜æ–‡ä»¶åˆ°æ‰‹æœºè‡ªå¸¦å­˜å‚¨å™¨
+	 * @param filename æ–‡ä»¶åç§°
+	 * @param content æ–‡ä»¶å†…å®¹
 	 * */
 	public void save(String filename, String content) throws Exception {
-		// µÃµ½Êä³öÁ÷¶ÔÏó
-		// Context.MODE_PRIVATEÈÃÎÄ¼şÎªË½ÓĞ
-		// Context¸øÁËÎÒÃÇÒ»¸ö¿ìËÙµÃµ½ÎÄ¼şÊä³öÁ÷¶ÔÏóµÄ·½·¨:openFileOuptput
-		// µÚ¶ş¸ö²ÎÊıÖ¸¶¨ÎÄ¼şµÄ²Ù×÷Ä£Ê½£ºË½ÓĞ²Ù×÷Ä£Ê½ ´´½¨³öÀ´µÄÎÄ¼şÖ»ÄÜ±»±¾Ó¦ÓÃ·ÃÎÊ£¬ÆäËüÓ¦ÓÃÎŞ·¨·ÃÎÊ¸ÃÎÄ¼ş£¬ÁíÍâ²ÉÓÃË½ÓĞÄ£Ê½´´½¨µÄÎÄ¼ş£¬Ğ´ÈëÎÄ¼şÖĞµÄÄÚÈİ»á¸²¸ÇË½ÓĞÎÄ¼şÖĞµÄÄÚÈİ
+		// å¾—åˆ°è¾“å‡ºæµå¯¹è±¡
+		// Context.MODE_PRIVATEè®©æ–‡ä»¶ä¸ºç§æœ‰
+		// Contextç»™äº†æˆ‘ä»¬ä¸€ä¸ªå¿«é€Ÿå¾—åˆ°æ–‡ä»¶è¾“å‡ºæµå¯¹è±¡çš„æ–¹æ³•:openFileOuptput
+		// ç¬¬äºŒä¸ªå‚æ•°æŒ‡å®šæ–‡ä»¶çš„æ“ä½œæ¨¡å¼ï¼šç§æœ‰æ“ä½œæ¨¡å¼ åˆ›å»ºå‡ºæ¥çš„æ–‡ä»¶åªèƒ½è¢«æœ¬åº”ç”¨è®¿é—®ï¼Œå…¶å®ƒåº”ç”¨æ— æ³•è®¿é—®è¯¥æ–‡ä»¶ï¼Œå¦å¤–é‡‡ç”¨ç§æœ‰æ¨¡å¼åˆ›å»ºçš„æ–‡ä»¶ï¼Œå†™å…¥æ–‡ä»¶ä¸­çš„å†…å®¹ä¼šè¦†ç›–ç§æœ‰æ–‡ä»¶ä¸­çš„å†…å®¹
 		FileOutputStream outStream = context.openFileOutput(filename, Context.MODE_PRIVATE);
-		// Ğ´ÈëÊı¾İ,content.getBytes() ×Ö·ûÊı¾İ --> ×Ö½ÚÊı¾İ
+		// å†™å…¥æ•°æ®,content.getBytes() å­—ç¬¦æ•°æ® --> å­—èŠ‚æ•°æ®
 		outStream.write(content.getBytes());
 		outStream.close();
 	}
 	/**
-	 * ±£´æÊı¾İµ½SD¿¨ÉÏ
+	 * ä¿å­˜æ•°æ®åˆ°SDå¡ä¸Š
 	 * */
 	public void saveToSDCard(String filename, String content) throws Exception {
-		// Ê¹ÓÃEnvironment.getExternalStorageDirectory()»ñÈ¡³öAndroidµÄSDµÄ¸ùÄ¿Â¼
+		// ä½¿ç”¨Environment.getExternalStorageDirectory()è·å–å‡ºAndroidçš„SDçš„æ ¹ç›®å½•
 		File file = new File(Environment.getExternalStorageDirectory(), filename);
-		// µÃµ½ÎÄ¼şµÄÊä³öÁ÷£¬Ê¹ÓÃ£ºoutputStream´«Èë×Ö½ÚÊı¾İ
+		// å¾—åˆ°æ–‡ä»¶çš„è¾“å‡ºæµï¼Œä½¿ç”¨ï¼šoutputStreamä¼ å…¥å­—èŠ‚æ•°æ®
 		FileOutputStream outStream = new FileOutputStream(file);
-		// Ê¹ÓÃgetBytes()°ÑÎÄ¼şµÄÄÚÈİ×ª»»Îª×Ö½ÚÊı¾İ
+		// ä½¿ç”¨getBytes()æŠŠæ–‡ä»¶çš„å†…å®¹è½¬æ¢ä¸ºå­—èŠ‚æ•°æ®
 		outStream.write(content.getBytes());
-		// ¹Ø±ÕÎÄ¼şµÄÊä³öÁ÷
+		// å…³é—­æ–‡ä»¶çš„è¾“å‡ºæµ
 		outStream.close();
 	}
 	/**
-	 * ¶ÁÈ¡ÎÄ¼şÄÚÈİ
-	 * @param filename ÎÄ¼şÃû³Æ
-	 * @return ÎÄ¼şÄÚÈİ
+	 * è¯»å–æ–‡ä»¶å†…å®¹
+	 * @param filename æ–‡ä»¶åç§°
+	 * @return æ–‡ä»¶å†…å®¹
 	 * 
 	 * */
 	public String read(String filename) throws Exception {
-		// Ê¹ÓÃÎÄ¼şµÄÊäÈëÁ÷£¬ContextÌá¹©ÁËÒ»¸öµÃµ½ÊäÈëÁ÷¶ÔÏóµÄ·½·¨
+		// ä½¿ç”¨æ–‡ä»¶çš„è¾“å…¥æµï¼ŒContextæä¾›äº†ä¸€ä¸ªå¾—åˆ°è¾“å…¥æµå¯¹è±¡çš„æ–¹æ³•
 		FileInputStream inStream = context.openFileInput(filename);
-		// °ÑÃ¿´Î¶Á³öµÄÊı¾İ¶¼Ğ´µ½ÄÚ´æÖĞ
+		// æŠŠæ¯æ¬¡è¯»å‡ºçš„æ•°æ®éƒ½å†™åˆ°å†…å­˜ä¸­
 		ByteArrayOutputStream outStream = new ByteArrayOutputStream();
 		// 
 		byte[] buffer = new byte[1024];
-		int len = 0;	// µÃµ½Êı¾İ³¤¶È
-		// inStream.read(buffer)»ñÈ¡¶Áµ½µÄÊı¾İ´óĞ¡£¬Èç¹û»¹ÓĞÊı¾İ¾Í¼ÌĞø¶ÁÈ¡
+		int len = 0;	// å¾—åˆ°æ•°æ®é•¿åº¦
+		// inStream.read(buffer)è·å–è¯»åˆ°çš„æ•°æ®å¤§å°ï¼Œå¦‚æœè¿˜æœ‰æ•°æ®å°±ç»§ç»­è¯»å–
 		while((len = inStream.read(buffer)) != -1){
-			// ¶Áµ½¶àÉÙÊı¾İ¶¼ÒªĞ´µ½ÄÚ´æÖĞ
+			// è¯»åˆ°å¤šå°‘æ•°æ®éƒ½è¦å†™åˆ°å†…å­˜ä¸­
 			outStream.write(buffer, 0, len);
 		}
-		// dataµÃµ½outStreamÖĞµÄËùÓĞÊı¾İ
+		// dataå¾—åˆ°outStreamä¸­çš„æ‰€æœ‰æ•°æ®
 		byte[] data = outStream.toByteArray();
 		return new String(data);
 	}
